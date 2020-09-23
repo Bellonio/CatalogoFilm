@@ -1,5 +1,7 @@
 package com.bellone.catalogofilm;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;

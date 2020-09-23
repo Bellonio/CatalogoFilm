@@ -57,12 +57,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        listViewFilm.setAdapter(adapter);
+        if(lista_film.size() > 0) {
+            listViewFilm.setAdapter(adapter);
 
-        aggiornaTextViewInfo();
+            aggiornaTextViewInfo();
 
-        btnPrecedente.setOnClickListener(this);
-        btnSuccessivo.setOnClickListener(this);
+            btnPrecedente.setOnClickListener(this);
+            btnSuccessivo.setOnClickListener(this);
+        }
     }
 
 
@@ -164,7 +166,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             gestoreFile.addFilm(film);
 
-            regista = new Regista("giovanni", "rana", "ita", 1920);
+
+            regista = new Regista("giovanni", "rana", "italiano", 1970);
 
             lingue = new ArrayList<String>();
             lingue.add("Italiano");
@@ -175,78 +178,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             generi.add("Fantasy");
 
             tag = new ArrayList<>();
-            tag.add("bello");
-            tag.add("morte");
+            tag.add("rana");
+            tag.add("italianFilm");
 
             attori = new ArrayList<>();
-            attori.add(new Attore("luigi", "paolino", "italiano", 1947));
-            attori.add(new Attore("Josh", "levi", "canadese", 1928));
-            attori.add(new Attore("marge", "Phillip", "canadese", 1910));
-            attori.add(new Attore("skjgsblgudi", "sdgg", "tedesco", 1999));
+            attori.add(new Attore("luigi", "paolino", "italiano", 1974));
+            attori.add(new Attore("Andrea", "leviano", "italiano", 1978));
+            attori.add(new Attore("Luca", "Rossi", "italiano", 1980));
 
             recensioni = new ArrayList<>();
-            recensioni.add(new Recensione("132465", "brutto", 10));
-            recensioni.add(new Recensione("16458", "na merda", 8));
-            recensioni.add(new Recensione("sfsdf", "fantastico !", 8));
-            recensioni.add(new Recensione("1dfsdfsd6458", "uno schifo", 8));
+            recensioni.add(new Recensione("username1", "Bel film", 7));
+            recensioni.add(new Recensione("Ciccio1234", "Non mi e' piaciuto,\ncorto e senza senso"
+                    , 4));
+            recensioni.add(new Recensione("francesco", "Ottimo film", 8));
 
 
             film = new Film(
-                    "Lucas grey",
+                    "La morte",
                     regista,
                     "path_image",
                     "path_trailer",
-                    "DOMANI QUALCUNO MORIRA' E IO RIDERO' TANTISSIMO !",
-                    "Films, Super mario Bros, Legendary OSLO",
-                    68, 2000,
+                    "Domani qualcuno morira, ma domani e' un altro giorno.",
+                    "Super impresa per film italiani",
+                    38, 2020,
                     lingue, generi, tag, attori, recensioni
 
             );
 
             gestoreFile.addFilm(film);
 
-            regista = new Regista("giovanni", "rana", "ita", 1920);
-
-            lingue = new ArrayList<String>();
-            lingue.add("Italiano");
-
-            generi = new ArrayList<>();
-            generi.add("Fantascienza");
-            generi.add("Storico");
-            generi.add("Sportivo");
-            generi.add("Finanziario");
-            generi.add("Fantasy");
-
-            tag = new ArrayList<>();
-            tag.add("bello");
-
-            attori = new ArrayList<>();
-            attori.add(new Attore("luigi", "paolino", "italiano", 1947));
-            attori.add(new Attore("Josh", "levi", "canadese", 1928));
-            attori.add(new Attore("marge", "Phillip", "canadese", 1910));
-            attori.add(new Attore("skjgsblgudi", "sdgg", "tedesco", 1999));
-            attori.add(new Attore("dsfs", "afaf", "italiano", 2018));
-
-            recensioni = new ArrayList<>();
-            recensioni.add(new Recensione("132465", "brutto", 10));
-            recensioni.add(new Recensione("164asd58", "na figaata", 8));
-            recensioni.add(new Recensione("sgfdg", "na merda", 8));
-            recensioni.add(new Recensione("164sgdfg58", "na schifezza", 8));
-
-
-            film = new Film(
-                    "Luca mongeeeeee",
-                    regista,
-                    "path_image",
-                    "path_trailer",
-                    "SE NON MUOIO\n MI SUOICIDO\nsCeGlI IL BIO! \n FILENI !!! !",
-                    "Fi",
-                    68, 2000,
-                    lingue, generi, tag, attori, recensioni
-
-            );
-
-            gestoreFile.addFilm(film);
         }
     }
 
