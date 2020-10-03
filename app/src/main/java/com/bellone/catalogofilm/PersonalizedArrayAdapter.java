@@ -18,7 +18,7 @@ import java.util.List;
 
 public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnClickListener {
     private Context context;
-    private int resource;                           //campo che usero' per capire in quale listview sono
+    private int resource;                           //id del layout usato (layout_film o layout_recensioni)
     private ArrayList<Film> array_film = null;
     private ArrayList<Recensione> recensioni = null;
 
@@ -33,12 +33,14 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
         //Nel layout del film ho usato un'altra listview, e anch'essa ha bisogno di un array adapter
         // personalizzato. Quindi ci sono due costruttori uno per l'array adapter con l'array di Film
         // e l'altro con oggetti Recensione. Per il secondo ho dovuto differenziarlo dal primo aggiungendo
-        // un parametro (che serve solamente a differenziarlo dall'altro costruttore)
+        // un parametro (che serve solamente a differenziarlo dall'altro costruttore, visto che entrambi
+        // avevano gli stessi parametri)
     public PersonalizedArrayAdapter(@NonNull Context context, int resource, @NonNull List<Film> film) {
         super(context, resource, film);
         this.context = context;
         this.resource = resource;
         this.array_film = (ArrayList<Film>) film;
+        selectedItemPosition = 0;
     }
 
         //diverso numero di parametri
@@ -48,22 +50,12 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
         this.context = context;
         this.resource = resource;
         this.recensioni = (ArrayList<Recensione>) recensioni;
+        selectedItemPosition = 0;
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         return getView(position, convertView, parent);
-    }
-
-    @Override
-    public int getCount() {
-            //non era neccessario ora ma magari in futuro in caso usassi la classi per altri usi
-        if(resource == R.layout.film_layout){
-            return array_film.size();
-        }else if(resource == R.layout.recensione_layout){
-            return recensioni.size();
-        }
-        return getCount();
     }
 
     @NonNull
@@ -144,8 +136,7 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
             PersonalizedArrayAdapter adapter = new PersonalizedArrayAdapter(
                     parent.getContext(), R.layout.recensione_layout, film.getRecensioni(), 0);
             listViewRecensioni.setAdapter(adapter);
-            selectedItemPosition = 0;
-
+            listViewRecensioni.setSelection(selectedItemPosition);
 
             Button button;
             button = convertView.findViewById(R.id.btnTrailer_Film);
@@ -197,8 +188,7 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
         }
         if(v.getId() != R.id.btnTrailer_Film){
                 //Come scritto nel main, l'onClick sui button funziona sempre, MA la listview (delle recensioni)
-                // che predera' in considerazione sara' quella dell'item selezionato (della listview dei Film)
-                //(Per questo ho dovuto rendere un attributo della classe la listView)
+                // che predera' in considerazione sara' quella dell'item selezionato (della listview grande dei Film)
             listViewRecensioni.setSelection(selectedItemPosition);
         }
     }

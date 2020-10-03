@@ -9,13 +9,10 @@
     <string name="lblAttori">Attori:</string>
     <string name="lblCasaProduzione">Film prodotto da:</string>
     <string name="btnTrailer">Trailer</string>
-
-    <string name="btnPrecedente">Precedente</string>
-    <string name="btnSuccessivo">Successivo</string>
-
-
     <string name="lblUsername">Username:</string>
     <string name="lblVoto">Voto:</string>
 
+    <string name="btnPrecedente">Precedente</string>
+    <string name="btnSuccessivo">Successivo</string>
 
 </resources>

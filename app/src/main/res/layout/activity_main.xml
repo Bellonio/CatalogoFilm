@@ -11,37 +11,18 @@
         android:id="@+id/listViewFilm_Main"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblInfoSelezione_Main" />
-
-    <Button
-        android:id="@+id/btnPrecedenteFilm_Main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/btnPrecedente"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnSuccessivoFilm_Main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/btnSuccessivo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lblInfo" />
 
     <TextView
-        android:id="@+id/lblInfoSelezione_Main"
+        android:id="@+id/lblInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnSuccessivoFilm_Main"
-        app:layout_constraintStart_toEndOf="@+id/btnPrecedenteFilm_Main"
+        android:layout_marginTop="5dp"
+        android:text="FILM REGISTRATI"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
