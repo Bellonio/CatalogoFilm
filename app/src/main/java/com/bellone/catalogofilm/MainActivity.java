@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         default_films = new ArrayList<>();
 
             //Creo il gestore dei file, gli passo il percorso di dove saranno salvati i file e il nome del file
-        gestoreFile = new GestoreFile(getFilesDir().getPath()+"/", "catalogoFilm.txt");
+        gestoreFile = new GestoreFile(getApplicationContext(),getFilesDir().getPath()+"/", "catalogoFilm.txt");
 
             //per ora la registrazione va semplicemente a creare nuovi oggetti Film, sempre uguali, se il file non esiste ancora
         if(!gestoreFile.fileExist()){

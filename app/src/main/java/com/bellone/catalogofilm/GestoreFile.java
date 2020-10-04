@@ -1,5 +1,7 @@
 package com.bellone.catalogofilm;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -9,14 +11,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GestoreFile {
+
+    private Context context;
 
     private String files_path;
     private String file_name;
 
-    public GestoreFile(String files_path, String file_name) {
+    public GestoreFile(Context context, String files_path, String file_name) {
+        this.context = context;
         this.files_path = files_path;
         this.file_name = file_name;
     }
@@ -69,9 +76,16 @@ public class GestoreFile {
             //NON MI LEGGE TUTTO IL FILE, ARRIVA FINO AL FILM "Inception" e senza neanche finirlo, ho gia' provato a
             // leggere riga per riga (usando il BufferedReader) e sono andato su un sito per rimuovere tutti gli spazi/indentazioni...
             // in eccesso che c'erano ma non basta, non riesce cmq a leggere tutto il file
-        /* InputStream inputStream = getResources().openRawResource(R.raw.all_film_json);
-        String fileJson = "";
-        try {
+        /*      ALTRA MODALITA' CHE CMQ NON LEGGE TUTTO IL FILE
+        InputStream inputStream = context.getResources().openRawResource(R.raw.all_film_csv);
+        Scanner scanner = new Scanner(inputStream);
+        StringBuilder stringBuilder = new StringBuilder();
+        while(scanner.hasNextLine()){
+            stringBuilder.append(scanner.nextLine());
+        }*/
+        /*try {
+            InputStream inputStream = context.getResources().openRawResource(R.raw.all_film_csv);
+            String fileJson = "";
             int fileSize = inputStream.available();
 
                 //      PARTE DELLA DOCUMENTAZIONE SUL METODO
@@ -99,7 +113,7 @@ public class GestoreFile {
             e.printStackTrace();
             fileJson = null;
         }
-        Log.d("mieilog", "onResume: "+fileJson); */
+        Log.d("mieilog", "onResume: "+fileJson);*/
 
         File file = new File(files_path+file_name);
         try {
