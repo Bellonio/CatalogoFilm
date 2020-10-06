@@ -31,6 +31,25 @@ public class Film {
         this.recensioni = recensioni;
     }
 
+        //costruttore senza ancora gli attori e le recensioni e i percorsi (image e trailer)
+    public Film(String titolo, Regista regista, String trama, String casa_di_produzione, int durata, int anno_di_uscita
+            , ArrayList<String> lingue, ArrayList<String> generi, ArrayList<String> tag) {
+
+        this.titolo = titolo;
+        this.regista = regista;
+        this.imgCopertina_path = null;
+        this.trailer_path = null;
+        this.trama = trama;
+        this.casa_di_produzione = casa_di_produzione;
+        this.durata = durata;
+        this.anno_di_uscita = anno_di_uscita;
+        this.lingue = lingue;
+        this.generi = generi;
+        this.tag = tag;
+        this.attori = null;
+        this.recensioni = null;
+    }
+
     public String getTitolo() { return titolo; }
     public Regista getRegista() { return regista;}
     public String getImgCopertina_path() { return imgCopertina_path; }

@@ -117,37 +117,49 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
             textView.setText(contenutoArrayList_string.substring(0, contenutoArrayList_string.lastIndexOf(",")));
 
 
-            contenutoArrayList_string = context.getString(R.string.lblAttori) + " ";
-            for (Attore attore : film.getAttori()) {
-                contenutoArrayList_string += attore.getNome() + " " + attore.getCognome() + "(" + attore.getNazionalita()
-                        + ", " + String.valueOf(attore.getAnno_nascita()) + "),\n\t\t\t\t\t";
-            }
             textView = convertView.findViewById(R.id.lblAttori_Film);
-                                                                    //tolgo l'ultima virgola
-            textView.setText(contenutoArrayList_string.substring(0, contenutoArrayList_string.lastIndexOf(",")-1));
-
+            contenutoArrayList_string = context.getString(R.string.lblAttori) + " ";
+            if(film.getAttori() != null && film.getAttori().size() > 0) {
+                for (Attore attore : film.getAttori()) {
+                    contenutoArrayList_string += attore.getNome() + " " + attore.getCognome() + "(" + attore.getNazionalita()
+                            + ", " + String.valueOf(attore.getAnno_nascita()) + "),\n\t\t\t\t\t";
+                }
+                                                        //tolgo l'ultima virgola
+                textView.setText(contenutoArrayList_string.substring(0, contenutoArrayList_string.lastIndexOf(",")-1));
+            }else{
+                textView.setText("NESSUN ATTORE REGISTRATO PER QUESTO FILM");
+            }
 
             textView = convertView.findViewById(R.id.lblCasaDiProduzione_Film);
             stringa_scritta = context.getString(R.string.lblCasaProduzione) + " " + film.getCasa_di_produzione();
             textView.setText(stringa_scritta);
 
 
-            listViewRecensioni = convertView.findViewById(R.id.listViewRecensioni_Film);
-            PersonalizedArrayAdapter adapter = new PersonalizedArrayAdapter(
-                    parent.getContext(), R.layout.recensione_layout, film.getRecensioni(), 0);
-            listViewRecensioni.setAdapter(adapter);
-            listViewRecensioni.setSelection(selectedItemPosition);
-
             Button button;
             button = convertView.findViewById(R.id.btnTrailer_Film);
-            button.setOnClickListener(this);
+            if(film.getTrailer_path() != null) {
+                button.setOnClickListener(this);
+            }else{ button.setVisibility(View.INVISIBLE); }
 
             button = convertView.findViewById(R.id.btnPrecedente_Film);
-            button.setOnClickListener(this);
+            if(film.getRecensioni() != null && film.getRecensioni().size() > 0) {
+                button.setOnClickListener(this);
+                button = convertView.findViewById(R.id.btnSuccessivo_Film);
+                button.setOnClickListener(this);
+            }else{
+                button.setVisibility(View.INVISIBLE);
+                button = convertView.findViewById(R.id.btnSuccessivo_Film);
+                button.setVisibility(View.INVISIBLE);
+            }
 
-            button = convertView.findViewById(R.id.btnSuccessivo_Film);
-            button.setOnClickListener(this);
 
+            if(film.getRecensioni() != null && film.getRecensioni().size() > 0){
+                listViewRecensioni = convertView.findViewById(R.id.listViewRecensioni_Film);
+                PersonalizedArrayAdapter adapter = new PersonalizedArrayAdapter(
+                        parent.getContext(), R.layout.recensione_layout, film.getRecensioni(), 0);
+                listViewRecensioni.setAdapter(adapter);
+                listViewRecensioni.setSelection(selectedItemPosition);
+            }
 
         }else if(resource == R.layout.recensione_layout){
             recensione = (Recensione)getItem(position);
