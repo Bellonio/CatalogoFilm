@@ -99,8 +99,15 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
 
 
             textView = convertView.findViewById(R.id.lblTrama_Film);
+                                //ci sono circa 40 caratteri in una riga. Mostro 10 righe
             stringa_scritta = film.getTrama();
+            if(stringa_scritta.length() > 40*10){
+                stringa_scritta = stringa_scritta.substring(0, 40*10) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t. . .";
+            }
             textView.setText(stringa_scritta);
+
+            textView.setOnClickListener(this);
+
 
 
             textView = convertView.findViewById(R.id.lblRegista_Film);
@@ -184,6 +191,9 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.lblTrama_Film:
+                ((TextView)v).setText(film.getTrama());
+                break;
             case R.id.btnTrailer_Film:
                 Toast.makeText(context, "Link TRAILER: " + film.getTrailer_path(), Toast.LENGTH_SHORT).show();
                 break;
@@ -198,7 +208,7 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
                 }
                 break;
         }
-        if(v.getId() != R.id.btnTrailer_Film){
+        if(v.getId() == R.id.btnPrecedente_Film || v.getId() == R.id.btnSuccessivo_Film){
                 //Come scritto nel main, l'onClick sui button funziona sempre, MA la listview (delle recensioni)
                 // che predera' in considerazione sara' quella dell'item selezionato (della listview grande dei Film)
             listViewRecensioni.setSelection(selectedItemPosition);

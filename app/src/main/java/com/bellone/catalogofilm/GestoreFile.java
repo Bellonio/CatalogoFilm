@@ -55,6 +55,10 @@ public class GestoreFile {
 
                     titolo = film.getString("titolo");
                     casa_di_produzione = film.getString("casa_di_produzione");
+                    if(casa_di_produzione.contains("|")){
+                        casa_di_produzione = casa_di_produzione.replace('\"', ' ').replace('|', ',');
+                    }
+
                     trama = film.getString("trama");
 
                     generi = this.convertStringToStringArray(film.getString("generi"));
@@ -78,7 +82,9 @@ public class GestoreFile {
         String stringWithoutBrackets = stringa.substring(1, stringa.length()-1);
         ArrayList<String> arrayList = new ArrayList<>();
 
-        for(String str: stringWithoutBrackets.split(",")){ arrayList.add(str); }
+        for(String str: stringWithoutBrackets.split(",")){
+            arrayList.add(str.replace('\"', ' '));
+        }
 
         return arrayList;
     }
