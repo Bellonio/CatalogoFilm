@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">CatalogoFilm</string>
+    <string name="app_name">Catalogo Film</string>
+        <!--      MAIN-ACTIVITY LAYOUT           -->
+    <string name="lblInfo">ORDINA FILM\nREGISTRATI PER</string>
+    <string name="btnSearchFilm">CERCA FILM</string>
+    <string name="btnRemoveFilm">ELIMINA FILM</string>
+    <string name="hintTxtTitolo">TITOLO</string>
+    <string name="hintTxtAnno">Anno di\nuscita</string>
+    <string name="hintTxtRegista">Nome e/o cognome\ndel regista</string>
+        <!-- ################################### -->
 
+        <!--      FILM LAYOUT           -->
     <string name="lblTitolo">Titolo:</string>
     <string name="lblAnnoUscita">Anno di uscita:</string>
     <string name="lblDurata">Durata:</string>
@@ -14,5 +23,6 @@
 
     <string name="btnPrecedente">Precedente</string>
     <string name="btnSuccessivo">Successivo</string>
+        <!-- ######################### -->
 
 </resources>

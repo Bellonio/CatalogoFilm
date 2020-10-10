@@ -10,19 +10,90 @@
     <ListView
         android:id="@+id/listViewFilm_Main"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitoloFilm_Main" />
 
     <TextView
         android:id="@+id/lblInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:text="FILM REGISTRATI"
-        android:textSize="21sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/lblInfo"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spnOrdinamento_Main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:gravity="right|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/lblInfo"
+        app:layout_constraintStart_toEndOf="@+id/lblInfo"
+        app:layout_constraintTop_toTopOf="@+id/lblInfo" />
+
+    <EditText
+        android:id="@+id/txtTitoloFilm_Main"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="3dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/hintTxtTitolo"
+        android:inputType="textMultiLine"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchFilm_Main" />
+
+    <EditText
+        android:id="@+id/txtAnnoUscita_Main"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/hintTxtAnno"
+        android:inputType="number"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txtTitoloFilm_Main"
+        app:layout_constraintTop_toTopOf="@+id/txtTitoloFilm_Main" />
+
+    <EditText
+        android:id="@+id/txtDatiRegista_Main"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/hintTxtRegista"
+        android:inputType="textMultiLine"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txtAnnoUscita_Main"
+        app:layout_constraintTop_toTopOf="@+id/txtTitoloFilm_Main" />
+
+    <Button
+        android:id="@+id/btnSearchFilm_Main"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/btnSearchFilm"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblInfo" />
+
+    <TextView
+        android:id="@+id/lblItemSelected_Main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

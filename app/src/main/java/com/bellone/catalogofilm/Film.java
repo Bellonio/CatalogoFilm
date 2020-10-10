@@ -11,10 +11,10 @@ public class Film {
     private ArrayList<Attore> attori;
     private ArrayList<Recensione> recensioni;
 
-    public Film(String titolo, Regista regista, String imgCopertina_path, String trailer_path
-            , String trama, String casa_di_produzione, int durata, int anno_di_uscita, ArrayList<String> lingue
-            , ArrayList<String> generi, ArrayList<String> tag, ArrayList<Attore> attori
-            , ArrayList<Recensione> recensioni) {
+    public Film(String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
+                    Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama,
+                    String imgCopertina_path, String trailer_path, ArrayList<Attore> attori
+                    , ArrayList<Recensione> recensioni) {
 
         this.titolo = titolo;
         this.regista = regista;
@@ -32,8 +32,8 @@ public class Film {
     }
 
         //costruttore senza ancora gli attori e le recensioni e i percorsi (image e trailer)
-    public Film(String titolo, Regista regista, String trama, String casa_di_produzione, int durata, int anno_di_uscita
-            , ArrayList<String> lingue, ArrayList<String> generi, ArrayList<String> tag) {
+    public Film(String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
+                Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama) {
 
         this.titolo = titolo;
         this.regista = regista;

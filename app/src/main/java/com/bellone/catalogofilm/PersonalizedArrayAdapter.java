@@ -53,11 +53,6 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
         selectedItemPosition = 0;
     }
 
-    @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return getView(position, convertView, parent);
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull final ViewGroup parent) {
@@ -68,6 +63,8 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
         String stringa_scritta = "";
         TextView textView;
         if(resource == R.layout.film_layout) {
+
+            MainActivity.setLblItemSelectedValue(String.valueOf(position+1)+"/"+String.valueOf(array_film.size()));
 
             film = (Film)getItem(position);
             String contenutoArrayList_string = "";

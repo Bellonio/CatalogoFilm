@@ -1,6 +1,5 @@
 package com.bellone.catalogofilm;
 
-import android.content.Context;
 import android.os.Environment;
 
 import org.json.JSONArray;
@@ -16,14 +15,16 @@ import java.util.ArrayList;
 
 public class GestoreFile {
 
-    private String file_name;
+    private GestoreArrayFilm gestoreArrayFilm = null;
+    private String file_name = null;
 
-    public GestoreFile(String file_name) {
+    public GestoreFile(GestoreArrayFilm gestoreArrayFilm, String file_name) {
+        this.gestoreArrayFilm = gestoreArrayFilm;
         this.file_name = file_name;
     }
 
         //metodo che ritorna una lista con tutti i Film salvati (che serve all'array adapter)
-    public ArrayList<Film> readFilms(){
+    public boolean readFilms(){
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/"+file_name);
 
         String fileJson_str = "";
@@ -37,14 +38,11 @@ public class GestoreFile {
         } catch (FileNotFoundException e) { fileJson_str = null;
         } catch (IOException e) { fileJson_str = null; }
 
-        ArrayList<Film> array_film = null;
         if(fileJson_str != null){
 
             try {
                 JSONObject jsonObject = new JSONObject(fileJson_str);
                 JSONArray films = jsonObject.getJSONArray("films");
-
-                array_film = new ArrayList<>();
 
                 for(int i=0; i<films.length(); i++){
                     JSONObject film = films.getJSONObject(i);
@@ -70,12 +68,13 @@ public class GestoreFile {
                     durata = film.getInt("durata");
                     anno_di_uscita = film.getInt("anno_di_uscita");
 
-                    array_film.add(new Film(titolo, regista, trama, casa_di_produzione, durata, anno_di_uscita, lingue, generi, tag));
+                    gestoreArrayFilm.addFilm(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama);
+                    //gestoreArrayFilm.addFilm(new Film(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
                 }
 
-            } catch (JSONException e) { array_film = null; }
+            } catch (JSONException e) { return false; }
         }
-        return array_film;
+        return true;
     }
 
     private ArrayList<String> convertStringToStringArray(String stringa){

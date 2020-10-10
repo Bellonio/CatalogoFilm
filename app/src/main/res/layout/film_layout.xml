@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:paddingTop="120dp"
     android:paddingBottom="120dp">
+    <!--10dp, l'ho messo alto per far vedere bene che il getView lo esegue abbastanza prima di "vedere" l'item
+        (quindi la lblItemSelected che cambia) -->
 
     <LinearLayout
         android:layout_width="match_parent"
