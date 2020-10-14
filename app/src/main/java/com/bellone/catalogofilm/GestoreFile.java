@@ -15,15 +15,20 @@ import java.util.ArrayList;
 
 public class GestoreFile {
 
-    private GestoreArrayFilm gestoreArrayFilm = null;
-    private String file_name = null;
+    private GestoreArrayFilm gestoreArrayFilm;
+    private String file_name;
 
     public GestoreFile(GestoreArrayFilm gestoreArrayFilm, String file_name) {
         this.gestoreArrayFilm = gestoreArrayFilm;
         this.file_name = file_name;
     }
 
-        //metodo che ritorna una lista con tutti i Film salvati (che serve all'array adapter)
+
+    /**
+     * Con questo metodo leggo il file dalla cartella Downloads del telefono, poi "rileggo"  il file, salvato in una
+     * variabile, con il JSON, prendo ogni valore e creo l'oggetto Film da aggiungere alla lista.
+     * @return il metodo ritorna false in caso vi sia un errore, altrimenti true
+     */
     public boolean readFilms(){
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/"+file_name);
 
@@ -33,7 +38,7 @@ public class GestoreFile {
             BufferedReader br = new BufferedReader(fr);
 
             String riga;
-            while((riga=br.readLine()) != null){ fileJson_str += riga; }
+            while((riga=br.readLine()) != null){ fileJson_str += riga.trim(); }
             br.close();
         } catch (FileNotFoundException e) { fileJson_str = null;
         } catch (IOException e) { fileJson_str = null; }
@@ -59,11 +64,11 @@ public class GestoreFile {
 
                     trama = film.getString("trama");
 
-                    generi = this.convertStringToStringArray(film.getString("generi"));
-                    lingue = this.convertStringToStringArray(film.getString("lingue"));;
-                    tag = this.convertStringToStringArray(film.getString("tag"));;
+                    generi = convertStringToStringArray(film.getString("generi"));
+                    lingue = convertStringToStringArray(film.getString("lingue"));;
+                    tag = convertStringToStringArray(film.getString("tag"));;
 
-                    regista = this.convertStringToRegista(film.getString("regista"));
+                    regista = convertStringToRegista(film.getString("regista"));
 
                     durata = film.getInt("durata");
                     anno_di_uscita = film.getInt("anno_di_uscita");
@@ -73,10 +78,17 @@ public class GestoreFile {
                 }
 
             } catch (JSONException e) { return false; }
-        }
+        }else{ return false; }
         return true;
     }
 
+    /**
+     * Nel metodo prima di tutto rimuove le parentesi "[" "]" dalla stringa, dopodiche' splitta la stringa
+     *  in un array di stringhe e le aggiunge ad un ArrayList, togliendo pero' il '"'. Ottenendo cosi', dalla stringa
+     *  d'esempio, il seguente arraylist [" thriller "," fantastico "," drammatico "," orrore "]
+     * @param stringa   ad esempio: stringa == "["thriller","fantastico","drammatico","orrore"]"
+     * @return array di stringhe (nel caso di questo file JSON ritornera' l'array di generi, lingue o tag)
+     */
     private ArrayList<String> convertStringToStringArray(String stringa){
         String stringWithoutBrackets = stringa.substring(1, stringa.length()-1);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -88,6 +100,11 @@ public class GestoreFile {
         return arrayList;
     }
 
+    /**
+     * Il metodo trasforma la stringa in un oggetto JSON, prende i vari valori e crea l'oggetto Regista
+     * @param stringa  ad esempio: stringa == "{"nome":"Rodrigo Cortés","cognome":"Giráldez","nazionalita":"spagnolo","anno_di_nascita":1973}"
+     * @return l'oggetto Regista creato, o null in caso avvenga un errore
+     */
     private Regista convertStringToRegista(String stringa){
         try {
             JSONObject regista_jsonObject = new JSONObject(stringa);
@@ -100,8 +117,7 @@ public class GestoreFile {
             anno_di_nascita = regista_jsonObject.getInt("anno_di_nascita");
 
             return (new Regista(nome, cognome, nazionalita, anno_di_nascita));
-        } catch (JSONException e) { e.printStackTrace(); }
-        return null;
+        } catch (JSONException e) { return null; }
     }
 
 }

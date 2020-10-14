@@ -3,13 +3,13 @@ package com.bellone.catalogofilm;
 import java.util.ArrayList;
 
 public class Film {
-
     private String titolo, imgCopertina_path, trailer_path, trama, casa_di_produzione;
     private Regista regista;
     private int durata, anno_di_uscita;
     private ArrayList<String> lingue, generi, tag;
     private ArrayList<Attore> attori;
     private ArrayList<Recensione> recensioni;
+
 
     public Film(String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
                     Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama,
@@ -31,7 +31,7 @@ public class Film {
         this.recensioni = recensioni;
     }
 
-        //costruttore senza ancora gli attori e le recensioni e i percorsi (image e trailer)
+        /*costruttore senza ancora gli attori e le recensioni e i percorsi (della copertina e del trailer)*/
     public Film(String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
                 Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama) {
 
@@ -63,7 +63,4 @@ public class Film {
     public ArrayList<String> getTag() { return tag; }
     public ArrayList<Attore> getAttori() { return attori; }
     public ArrayList<Recensione> getRecensioni() { return recensioni; }
-
-
-
 }
