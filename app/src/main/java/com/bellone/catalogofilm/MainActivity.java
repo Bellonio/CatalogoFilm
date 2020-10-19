@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /*Se, da quando l'app e' stata avviata, non ha ancora richiesto i permessi
                 e il permesso non e' stato concesso, chiede il permesso di leggere nella memoria del telefono*/
         if(!permissionRequestDone) {
-            if (ActivityCompat.checkSelfPermission(MainActivity.this,
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
                     PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
 
                 ActivityCompat.requestPermissions(MainActivity.this,
