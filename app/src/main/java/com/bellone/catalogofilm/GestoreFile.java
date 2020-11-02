@@ -1,89 +1,103 @@
 package com.bellone.catalogofilm;
 
-import android.os.Environment;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GestoreFile {
 
-    private GestoreArrayFilm gestoreArrayFilm;
-    private String file_name;
+    private final GestoreArrayFilm gestoreArrayFilm;
+    private final RequestQueue queue;
+    private final MainActivity activity;
 
-    public GestoreFile(GestoreArrayFilm gestoreArrayFilm, String file_name) {
+    private boolean flagErroreJson;
+    private boolean flagErroreRichiesta;
+
+    public boolean getFlagErroreJson(){ return flagErroreJson; }
+    public boolean getFlagErroreRichiesta(){ return flagErroreRichiesta; }
+
+    public GestoreFile(GestoreArrayFilm gestoreArrayFilm, MainActivity activity) {
         this.gestoreArrayFilm = gestoreArrayFilm;
-        this.file_name = file_name;
+        this.activity = activity;
+        this.queue = Volley.newRequestQueue(activity.getApplicationContext());
     }
 
 
     /**
-     * Con questo metodo leggo il file dalla cartella Downloads del telefono, poi "rileggo"  il file, salvato in una
-     * variabile, con il JSON, prendo ogni valore e creo l'oggetto Film da aggiungere alla lista.
-     * @return il metodo ritorna false in caso vi sia un errore, altrimenti true
+     * Metodo che va a fare la richiesta per il JSON, e se tutto va a buon fine
+     * richiama il metodo del MainActivity per settare gli ascoltatori. Quest'ultima parte
+     * non so quanto sia giusta da fare, ma se volevo fare una classe a parte per la lettura.
+     * Tutto questo perche', credo, il metodo termina prima che abbia eseguito l"onResponse",
+     * come se fosse un processo a parte, e quindi metodi come l'utilizzo di flag non e' utilizzabile.
      */
-    public boolean readFilms(){
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/"+file_name);
+    public void readFilms(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, MainActivity.JSON_file_URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray arrayFilms = response.getJSONArray("films");
 
-        String fileJson_str = "";
-        try {
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
+                    for(int i=0; i<arrayFilms.length(); i++){
+                        JSONObject film = arrayFilms.getJSONObject(i);
+                        String titolo, casa_di_produzione, trama, varAppoggio;
+                        ArrayList<String> generi, lingue, tag;
+                        Regista regista;
+                        int durata, anno_di_uscita;
 
-            String riga;
-            while((riga=br.readLine()) != null){ fileJson_str += riga.trim(); }
-            br.close();
-        } catch (FileNotFoundException e) { fileJson_str = null;
-        } catch (IOException e) { fileJson_str = null; }
+                        titolo = film.getString("titolo");
+                        casa_di_produzione = film.getString("casa_di_produzione");
+                        if(casa_di_produzione.contains("|")){
+                            casa_di_produzione = casa_di_produzione.replace('\"', ' ').replace('|', ',');
+                        }
 
-        if(fileJson_str != null){
+                        trama = film.getString("trama");
 
-            try {
-                JSONObject jsonObject = new JSONObject(fileJson_str);
-                JSONArray films = jsonObject.getJSONArray("films");
+                        generi = convertStringToStringArray(film.getString("generi"));
+                        lingue = convertStringToStringArray(film.getString("lingue"));
+                        tag = convertStringToStringArray(film.getString("tag"));
 
-                for(int i=0; i<films.length(); i++){
-                    JSONObject film = films.getJSONObject(i);
-                    String titolo, casa_di_produzione, trama, varAppoggio;
-                    ArrayList<String> generi, lingue, tag;
-                    Regista regista;
-                    int durata, anno_di_uscita;
+                        regista = convertStringToRegista(film.getString("regista"));
 
-                    titolo = film.getString("titolo");
-                    casa_di_produzione = film.getString("casa_di_produzione");
-                    if(casa_di_produzione.contains("|")){
-                        casa_di_produzione = casa_di_produzione.replace('\"', ' ').replace('|', ',');
+                        durata = film.getInt("durata");
+                        anno_di_uscita = film.getInt("anno_di_uscita");
+
+                        gestoreArrayFilm.addFilm(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama);
+                        //gestoreArrayFilm.addFilm(new Film(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
                     }
 
-                    trama = film.getString("trama");
+                    flagErroreJson = false;
+                    flagErroreRichiesta = false;
 
-                    generi = convertStringToStringArray(film.getString("generi"));
-                    lingue = convertStringToStringArray(film.getString("lingue"));;
-                    tag = convertStringToStringArray(film.getString("tag"));;
+                    activity.richiestaJsonCompletata();
 
-                    regista = convertStringToRegista(film.getString("regista"));
-
-                    durata = film.getInt("durata");
-                    anno_di_uscita = film.getInt("anno_di_uscita");
-
-                    gestoreArrayFilm.addFilm(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama);
-                    //gestoreArrayFilm.addFilm(new Film(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
+                } catch (JSONException e) {
+                    flagErroreJson = true;
+                    e.printStackTrace();
+                    activity.richiestaJsonCompletata();
                 }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                flagErroreRichiesta = true;
+                activity.richiestaJsonCompletata();
+            }
+        });
 
-            } catch (JSONException e) { return false; }
-        }else{ return false; }
-        return true;
+        queue.add(jsonObjectRequest);
     }
 
     /**
-     * Nel metodo prima di tutto rimuove le parentesi "[" "]" dalla stringa, dopodiche' splitta la stringa
+     * Nel metodo, prima di tutto rimuove le parentesi "[" "]" dalla stringa, dopodiche' splitta la stringa
      *  in un array di stringhe e le aggiunge ad un ArrayList, togliendo pero' il '"'. Ottenendo cosi', dalla stringa
      *  d'esempio, il seguente arraylist [" thriller "," fantastico "," drammatico "," orrore "]
      * @param stringa   ad esempio: stringa == "["thriller","fantastico","drammatico","orrore"]"
