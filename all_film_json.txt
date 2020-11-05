@@ -1,6 +1,7 @@
 {
 	"films":[
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMTY4ODg5MjMwNl5BMl5BanBnXkFtZTgwMDgyNzY1NTM@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Dark Hall",
 		  "durata":96,
 		  "anno_di_uscita":2018,
@@ -26,6 +27,7 @@
 		  "trama":"Kit Gordy è una ragazzina problematica che viene mandata al collegio di Blackwood quando il suo carattere forte diventa troppo difficile da gestire per sua madre. Una volta arrivata Kit conosce l'eccentrica direttrice Madame Duret e incontra altre quattro studentesse della scuola anche loro con vite travagliate. Mentre esplorano i labirintici corridoi della scuola Kit e le altre ragazze scoprono che Blackwood nasconde un secolare segreto radicato nel paranormale. La ragazza una sera insieme a Veronica si intrufola in una stanza dove trova dei documenti appartenenti alle ragazze che frequentavano il collegio un tempo e notano che la gran parte di loro è deceduta per suicidi le ragazze però vengono sorprese e Veronica si assume la colpa facendo nascondere Kit Madame Duret consegna la ragazza ai fantasmi del collegio che si impossessano di lei Madame Duret racconta a Kit e Izzy le uniche due rimaste che esse servivano come tramite per gli artisti deceduti e che tutti avevano un dono; Ashley fa da tramite per Elizabeth una scrittrice morta prematuramente Sierra per un pittore che si firma T.C. Izzy per un matematico Kit per un pianista. La ragazza però corre in camera da Ashley cerca di aiutarla ma essa si suiciderà gettandosi dalla finestra Sierra muore in camera sua per malnutrizione Izzy si getterà tra le fiamme del fuoco appiccato accidentalmente da Kit la governante morirà nelle fiamme abbracciando il figlio defunto la professoressa di letteratura si sacrifica per mandare avanti i ragazzi e Madame Duret (dopo aver ucciso il professore di matematica) verrà posseduta e si darà fuoco mentre Jules si sacrificherà per Kit. Arrivata la polizia con l’ambulanza portano via Veronica e Kit quasi in fin di vita vede il padre mentre i paramedici la soccorrono e gli dice finalmente addio prima di risvegliarsi."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Fight Club",
 		  "durata":151,
 		  "anno_di_uscita":1999,
@@ -47,6 +49,7 @@
 		  "trama":"Il protagonista è un uomo il cui vero nome non è mai pronunciato. Lavora come consulente nel ramo assicurativo di un'importante casa automobilistica. Si tratta dello stereotipo dello yuppie frustrato dalla vita moderna: schiavo del consumismo depresso insonne ansioso e stordito dal jet lag."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMjUyNTA3MTAyM15BMl5BanBnXkFtZTgwOTEyMTkyMjE@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Maze Runner-Il labirinto",
 		  "durata":113,
 		  "anno_di_uscita":2014,
@@ -67,6 +70,7 @@
 		  "trama":"Un ragazzo di nome Thomas si sveglia, senza alcuna memoria del suo passato, in uno strano posto chiamato Glade. Popolato da altri ragazzi, il Glade è una struttura chiusa e circondata da alte mura di pietra, utili a proteggere i residenti dai Grievers, i mostri che vivono nel labirinto sottostante. Ogni giorno, alcuni dei ragazzi vengono scelti per avventurarsi nel labirinto e cercare di mapparne un modello nel tentativo di trovare una via di uscita, senza ottenere grandi risultati. L’arrivo di una ragazza in coma porterà con sé grandi risvolti…"
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Inception",
 		  "durata":148,
 		  "anno_di_uscita":2010,
@@ -96,6 +100,7 @@
 		  "trama":"Dom Cobb è un abilissimo ladro, il migliore al mondo quando si tratta della pericolosa arte dell'estrazione: ovvero il furto di preziosi segreti dal profondo del subconscio mentre si sogna, quando la mente è al massimo della sua vulnerabilità. Le abilità di Cobb ne hanno fatto un protagonista di primo piano nel mondo dello spionaggio industriale, ma lo hanno reso un fuggitivo ricercato in tutto il mondo, costretto a lasciarsi alle spalle tutto ciò che ha sempre amato. Ora Cobb ha una chance di redenzione: un ultimo lavoro potrebbe restituirgli la sua vita, ma solo se riuscirà a rendere possibile l'impossibile. Invece di effettuare un colpo perfetto, Cobb e il suo team devono riuscire nell'opposto: non devono rubare un'idea ma impiantarne una nella testa di qualcuno."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMTNlZWU1YjEtM2FkMS00ODNhLWFhMDMtM2E0NWFkNGI0MDI1XkEyXkFqcGdeQXVyMjQ2MTk1OTE@._V1_UY268_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Doraemon - Il film: Le avventure di Nobita e dei cinque esploratori",
 		  "durata":109,
 		  "anno_di_uscita":2015,
@@ -115,6 +120,7 @@
 		  "trama":" Una nuova avventura del gatto spaziale Doraemon e del suo piccolo amico Nobita, chiamati a un viaggio nel futuro per provare a modificare una sorte che si preannuncia non proprio felice, soprattutto sul lato sentimentale..."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMDIzODcyY2EtMmY2MC00ZWVlLTgwMzAtMjQwOWUyNmJjNTYyXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"The Truman Show",
 		  "durata":103,
 		  "anno_di_uscita":1998,
@@ -143,6 +149,7 @@
 		  "trama":"Ogni secondo di ogni giorno che passa Truman è, a sua insaputa, il protagonista della soap opera documentaristica più lunga e seguita della televisione. Seaheaven, la cittadina dove Truman abita è in realtà un gigantesco teatro di posa dove amici e parenti sono tutti attori pagati che recitano la loro parte. Tutto va avanti fino al giorno in cui Truman comincia a sospettare qualcosa…"
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BNzFjZmM1ODgtMDBkMS00NWFlLTg2YmUtZjc3ZTgxMjE1OTI2L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"A Nightmare on Elm Street (Nightmare - Dal profondo della notte)",
 		  "durata":91,
 		  "anno_di_uscita":1984,
@@ -170,6 +177,7 @@
 		  "trama":"In Elm Street, Nancy Thompson e un gruppo di suoi amici (composto da Tina Gray, Rod Lane e Glen Lantz) sono tormentati nei loro sogni da un assassino artigliato di nome Fred Krueger. Nancy deve pensare velocemente, mentre Fred cerca di eliminarli uno per uno. Quando ti ha nel sonno, chi c'è a salvarti?"
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMTQ2NjE4NDE2NV5BMl5BanBnXkFtZTgwOTcwNDE5NzE@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Io prima di te",
 		  "durata":120,
 		  "anno_di_uscita":2016,
@@ -191,6 +199,7 @@
 		  "trama":"Louisa “Lou” Clark vive in una tipica cittadina della campagna inglese. Non sa bene cosa fare della sua vita, ha 26 anni e passa da un lavoro all’altro per aiutare la sua famiglia. Il suo inattaccabile buonumore viene però messo a dura prova quando si ritrova ad affrontare una nuova sfida lavorativa…"
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMTg0NjEwNjUxM15BMl5BanBnXkFtZTcwMzk0MjQ5Mg@@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"SherlockHolmes",
 		  "durata":128,
 		  "anno_di_uscita":2009,
@@ -211,6 +220,7 @@
 		  "trama":"L'astuto detective Sherlock Holmes e il suo fedele aiutante, il dottor Watson, sono chiamati ad affrontare uno strano criminale, appassionato di magia di nera, che riappare dalla tomba."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMTg1ZTcyY2ItZGU1Yy00ZWJkLWE4ZGMtNTM4MDIxZmEzNDg0XkEyXkFqcGdeQXVyMjQ0NzE0MQ@@._V1_UY268_CR14,0,182,268_AL_.jpg",
 		  "titolo":"Shutter Island",
 		  "durata":138,
 		  "anno_di_uscita":2010,
@@ -233,6 +243,7 @@
 		  "trama":"Rachel Salado, paziente del manicomio criminale sull'isola di Shutter, scompare all'improvviso. L'agente federale Teddy Daniels, affiancato dall'ufficiale Chuck Aule, deve indagare per risolvere il mistero."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BOTdmNTFjNDEtNzg0My00ZjkxLTg1ZDAtZTdkMDc2ZmFiNWQ1XkEyXkFqcGdeQXVyNTAzNzgwNTg@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"1917",
 		  "durata":119,
 		  "anno_di_uscita":2019,
@@ -262,6 +273,7 @@
 		  "trama":"Due giovani soldati britannici affrontano i momenti più crudeli della Prima Guerra Mondiale quando intraprendono una pericolosa missione per salvare 1.600 uomini da morte certa."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BNzQ3OTY4NjAtNzM5OS00N2ZhLWJlOWUtYzYwZjNmOWRiMzcyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Jurassic World",
 		  "durata":124,
 		  "anno_di_uscita":2015,
@@ -289,6 +301,7 @@
 		  "trama":"Situato vicino al mare in Costa Rica, l'esclusivo villaggio vacanze Jurassic World ospita una serie incredibile di dinosauri creati geneticamente, incluso un esemplare di Indominus rex, uno degli animali più intelligenti e dal carattere aggressivo. Quest'ultimo riesce ad evadere, scatenando una reazione a catena."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Doctor Strange",
 		  "durata":115,
 		  "anno_di_uscita":2016,
@@ -316,6 +329,7 @@
 		  "trama":"Un medico resta vittima di un tragico incidente, ma viene aiutato da uno stregone che lo inizia alle arti magiche, grazie alle quali egli riesce a redimersi e a combattere le forze oscure che minacciano l'umanità."
 	  },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BYTFmYmJkM2YtYzFjNS00NGI2LThiOWMtNGVhZDZiOGI0NDBhXkEyXkFqcGdeQXVyNjU1OTMzNDU@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"1922",
 		  "durata":101,
 		  "anno_di_uscita":2017,
@@ -342,6 +356,7 @@
 		  "trama":"Siamo nel Nebraska, nel 1922. Wilfred James (Thomas Jane) vive in modo semplice e modesto con la moglie Arlette (Molly Parker) e il figlio Henry (Dylan Schmid), gestendo una fattoria con cui spera un giorno di ottenere guadagni sostanziosi. Peccato che i piani di Arlette, che vuole vendere la propria parte di terreno e trasferirsi in città, interferiscano con le ambizioni di Wilfred, il quale fatica anche a sopportare l'idea di una consorte non assoggettata all'autorità patriarcale. Facendo leva sulle passioni adolescenziali del figlio viene quindi pianificato un omicidio, il cui ricordo tormenterà per sempre gli uomini della famiglia James. Il regista Zak Hilditch, che ha anche curato l'adattamento del testo di King, punta sulla dimensione morale, unita al contesto rurale rappresentato con un occhio a tratti malickiano, più che sull'orrore puro. Certo, fantasmi e allucinazioni fanno occasionalmente parte del repertorio, ma la vera tensione deriva dal tormento psicologico e spirituale del protagonista, il nucleo umano di una storia forse fin troppo riconoscibile (le tematiche, oltre ad essere care a King, evocano spudoratamente alcuni dei racconti più noti di altre due firme immortali dell'horror, Edgar Allan Poe e H.P. Lovecraft), ma comunque efficace nella sua demolizione progressiva dei valori d'altri tempi e della stabilità mentale di un uomo distaccato dalla realtà (la cui voce narrante inaffidabile, sotto forma di confessione otto anni dopo, scandisce i vari orrori)."
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMjAzMTI1MjMyN15BMl5BanBnXkFtZTgwNzU5MTE2NjM@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Bird Box",
 		  "durata":124,
 		  "anno_di_uscita":2018,
@@ -361,6 +376,7 @@
 		  "trama":"lo metto dopo!"
 	   },
 	   {
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BOWEwODJmZDItYTNmZC00OGM4LThlNDktOTQzZjIzMGQxODA4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "titolo":"Rush",
 		  "durata":130,
 		  "anno_di_uscita":2013,
