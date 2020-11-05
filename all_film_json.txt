@@ -70,6 +70,7 @@
 		  "titolo":"Inception",
 		  "durata":148,
 		  "anno_di_uscita":2010,
+		  "image_url":"https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
 		  "generi":[
 		     "Azione",
 		     "Fantascienza",
