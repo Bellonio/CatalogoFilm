@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,12 @@ public class PersonalizedArrayAdapter extends ArrayAdapter implements View.OnCli
 
             film = (Film)getItem(position);
             String contenutoArrayList_string = "";
+
+
+            if(film.getLocandina() != null){
+                ImageView imgLocandina = convertView.findViewById(R.id.imgCopertina_Film);
+                imgLocandina.setImageBitmap(film.getLocandina());
+            }
 
 
             textView = convertView.findViewById(R.id.lblTitolo_Film);

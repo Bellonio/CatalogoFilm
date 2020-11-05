@@ -28,9 +28,10 @@ public class GestoreFile {
     public GestoreFile(GestoreArrayFilm gestoreArrayFilm, MainActivity activity) {
         this.gestoreArrayFilm = gestoreArrayFilm;
         this.activity = activity;
-        this.queue = Volley.newRequestQueue(activity.getApplicationContext());
-    }
 
+        this.queue = Volley.newRequestQueue(activity.getApplicationContext());
+
+    }
 
     /**
      * Metodo che va a fare la richiesta per il JSON, e se tutto va a buon fine
@@ -48,10 +49,12 @@ public class GestoreFile {
 
                     for(int i=0; i<arrayFilms.length(); i++){
                         JSONObject film = arrayFilms.getJSONObject(i);
-                        String titolo, casa_di_produzione, trama, varAppoggio;
+                        String imgUrl, titolo, casa_di_produzione, trama;
                         ArrayList<String> generi, lingue, tag;
                         Regista regista;
                         int durata, anno_di_uscita;
+
+                        imgUrl = film.getString("image_url");
 
                         titolo = film.getString("titolo");
                         casa_di_produzione = film.getString("casa_di_produzione");
@@ -70,8 +73,8 @@ public class GestoreFile {
                         durata = film.getInt("durata");
                         anno_di_uscita = film.getInt("anno_di_uscita");
 
-                        gestoreArrayFilm.addFilm(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama);
-                        //gestoreArrayFilm.addFilm(new Film(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
+                        gestoreArrayFilm.addFilm(queue, imgUrl, titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama);
+                        //gestoreArrayFilm.addFilm(new Film(queue, imgUrl, titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
                     }
 
                     flagErroreJson = false;

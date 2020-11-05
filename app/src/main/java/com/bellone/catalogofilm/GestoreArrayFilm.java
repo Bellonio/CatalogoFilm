@@ -1,5 +1,7 @@
 package com.bellone.catalogofilm;
 
+import com.android.volley.RequestQueue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,6 +42,7 @@ public class GestoreArrayFilm {
     /**
      * Questo metodo va semplicemente a richiamare il metodo che aggiunge il film alla lista, creando sul momento
      *  l'oggetto Film con i parametri passati.
+     * @param imgUrl
      * @param titolo
      * @param durata
      * @param anno_di_uscita
@@ -50,10 +53,10 @@ public class GestoreArrayFilm {
      * @param tag
      * @param trama
      */
-    public void addFilm(String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
-                            Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama){
+    public void addFilm(RequestQueue queue, String imgUrl, String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
+                        Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama){
 
-        addFilm(new Film(titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
+        addFilm(new Film(queue, imgUrl, titolo, durata, anno_di_uscita, generi, lingue, regista, casa_di_produzione, tag, trama));
     }
 
 
