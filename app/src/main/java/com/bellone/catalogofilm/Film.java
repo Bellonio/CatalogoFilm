@@ -1,6 +1,8 @@
 package com.bellone.catalogofilm;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
@@ -10,14 +12,24 @@ import com.android.volley.toolbox.ImageRequest;
 
 import java.util.ArrayList;
 
-public class Film {
-    private String titolo, trailer_path, trama, casa_di_produzione;
-    private Regista regista;
+/*Non ho potuto usare implementare nella classe Film l'interfaccia Serializable, e ho invece
+   implementato Parcelable xke' la serializzazione dava errore al tentativo di serializzare l'attributo
+   "locandina" (tipo Bitmap) ("java.io.NotSerializableException: android.graphics.Bitmap").
+  Ma meglio cosi', in questo modo ho esluso alcuni attributi della classe che non mi interessava
+   dare alla activity Dettagi.
+*/
+public class Film implements Parcelable {
+    private final String titolo;
+    private final String trailer_path;
+    private final String trama;
+    private final String casa_di_produzione;
+    private final Regista regista;
     private int durata, anno_di_uscita;
-    private ArrayList<String> lingue, generi, tag;
+    private final ArrayList<String> lingue;
+    private ArrayList<String> generi;
+    private final ArrayList<String> tag;
     private ArrayList<Attore> attori;
     private ArrayList<Recensione> recensioni;
-        //L'immagine e' letta dal sito https://www.imdb.com e le dimensioni sono 182px (width) 268px (height)
     private Bitmap locandina = null;
 
 
@@ -40,8 +52,9 @@ public class Film {
         this.recensioni = recensioni;
     }
 
-        /*costruttore senza ancora gli attori e le recensioni e i percorsi (della copertina e del trailer)*/
-    public Film(RequestQueue queue, String imgUrl, String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
+        /*Costruttore senza ancora gli attori, le recensioni e il percorso del trailer)*/
+    public Film(RequestQueue queue, String imgUrl, String titolo, int durata, int anno_di_uscita,
+                ArrayList<String> generi, ArrayList<String> lingue,
                 Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama) {
 
         leggiLocandinaFilm(queue, imgUrl);
@@ -59,6 +72,49 @@ public class Film {
         this.recensioni = null;
     }
 
+    //Costruttore per rendere Parcelable la classe Film
+    protected Film(Parcel in) {
+        /*Questi saranno gli unici attributi che passo all'activity Dettagli, i
+            restanti saranno = null */
+
+        titolo = in.readString();
+        regista = (Regista) in.readSerializable(); //Il Regista e' figlio di Persona, classe Serializzabile
+        trailer_path = in.readString();
+        trama = in.readString();
+        casa_di_produzione = in.readString();
+        lingue = in.createStringArrayList();
+        tag = in.createStringArrayList();
+    }
+
+    public static final Creator<Film> CREATOR = new Creator<Film>() {
+        @Override
+        public Film createFromParcel(Parcel in) {
+            return new Film(in);
+        }
+
+        @Override
+        public Film[] newArray(int size) {
+            return new Film[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(titolo);
+        parcel.writeSerializable(regista);
+        parcel.writeString(trailer_path);
+        parcel.writeString(trama);
+        parcel.writeString(casa_di_produzione);
+        parcel.writeStringList(lingue);
+        parcel.writeStringList(tag);
+    }
+
+
     public String getTitolo() { return titolo; }
     public Regista getRegista() { return regista;}
     public Bitmap getLocandina() { return locandina; }
@@ -75,12 +131,14 @@ public class Film {
 
 
     /**
-     * Metodo per leggere dall'url dato l'immagine della copertina del film. Nell"onResponde"
-     * mi viene gia' fornito l'oggetto Bitmap. Come maxWidth e maxHeight ho impostato 0 cosi'
+     * Metodo per leggere dall'url dato l'immagine della copertina del film. Nell"onResponse"
+     * mi viene fornito il semplice oggetto Bitmap. Come maxWidth e maxHeight ho impostato 0 cosi'
      * che prenda i px in automatico. Bitmap.Config.ALPHA_8 e' una codifica dell'immagine un po'
-     * piu' leggera se ho capito bene (each pixel requires 1 byte of memory).
-     * @param queue
-     * @param imgUrl
+     * piu' leggera se ho capito bene (" https://developer.android.com/reference/android/graphics/Bitmap.Config?authuser=1 "
+     * qui ci sono tutte le costanti con la documentazione su come codificano l'immagine).
+     * @param queue         la coda delle richieste, uso sempre la stessa in modo da creare veramente una "coda"
+     *                          di richieste unica
+     * @param imgUrl        URL da cui fare l'ImageRequest
      */
     private void leggiLocandinaFilm(RequestQueue queue, String imgUrl){
         ImageRequest imgRequest = new ImageRequest(imgUrl, new Response.Listener<Bitmap>() {
@@ -98,5 +156,4 @@ public class Film {
 
         queue.add(imgRequest);
     }
-
 }

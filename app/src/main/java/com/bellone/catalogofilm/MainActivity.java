@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,14 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    //TODO readImage with Volley: https://stackoverflow.com/questions/41104831/how-to-download-an-image-by-using-volley
 
     public static final String JSON_file_URL =
             "https://raw.githubusercontent.com/Bellonio/CatalogoFilm/AppConNuoveFunzionalita/all_film_json.txt";
@@ -32,13 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtTitolo = null;
     private EditText txtAnnoUscita = null;
     private EditText txtDatiRegista = null;
-    private static TextView lblItemSelected = null;
 
     private GestoreFile gestoreFile = null;
     private GestoreArrayFilm gestoreArrayFilm = null;
     private PersonalizedArrayAdapter adapter = null;
 
-    public static void setLblItemSelectedValue(String value) { lblItemSelected.setText(value); }
+    private boolean flagDefaultArrayFilm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +56,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtTitolo = findViewById(R.id.txtTitoloFilm_Main);
         txtAnnoUscita = findViewById(R.id.txtAnnoUscita_Main);
         txtDatiRegista = findViewById(R.id.txtDatiRegista_Main);
-        lblItemSelected = findViewById(R.id.lblItemSelected_Main);
 
 
         ArrayList<String> spnValues = new ArrayList<>();
-            /*Rimepo lo spinner degli ordinamenti con i valori possibili nella classe GestoreArrayFilm*/
-        for(String value: GestoreArrayFilm.ORDER_VALUES){ spnValues.add(value); }
+            //Riempo lo spinner degli ordinamenti con i valori possibili nella classe GestoreArrayFilm
+        spnValues.addAll(Arrays.asList(GestoreArrayFilm.ORDER_VALUES));
         spnOrdinamento.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spnValues));
+
+        gestoreFile.readFilms();
+
+        flagDefaultArrayFilm = true;
     }
 
     @Override
@@ -77,18 +79,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(bigLayout.getVisibility() == View.INVISIBLE){
             bigLayout.setVisibility(View.VISIBLE);
         }
-        gestoreFile.readFilms();
+
+        listViewFilm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Film film = flagDefaultArrayFilm ? gestoreArrayFilm.getDefaultFilms().get(pos)
+                        : gestoreArrayFilm.getOrdinatedFilms().get(pos);
+                Intent intent = new Intent(getApplicationContext(), DettagliActivity.class);
+                intent.putExtra("film_parcelable", film);
+                startActivity(intent);
+            }
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
+        spnOrdinamento.setSelection(0);
+
         String titolo = "", datiRegista = "";
         int annoUscita = 0;
 
             //Controllo se si tratta di uno dei due button ricerca/rimozione di film
         if(view.getId() == R.id.btnSearchFilm_Main || view.getId() == R.id.btnRemoveFilm_Main){
-            //Controlla che almeno un dato sia stato inserito
+                //Controlla che almeno un dato sia stato inserito
             if(txtTitolo.getText().toString().length() > 0
                     || txtDatiRegista.getText().toString().length() > 0
                     || txtAnnoUscita.getText().toString().length() > 0) {
@@ -103,7 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     annoUscita = Integer.parseInt(txtAnnoUscita.getText().toString());
                 }
             }else{
-                //Nessun dato inserito, ricarica nell'adapter la lista default dei Film
+                gestoreArrayFilm.cancelArrayListRicerca();
+                    //Nessun dato inserito, ricarica nell'adapter la lista default dei Film
                 adapter = new PersonalizedArrayAdapter(getApplicationContext(), R.layout.film_layout
                         , gestoreArrayFilm.getDefaultFilms());
                 Toast.makeText(getApplicationContext(), "SCRIVI ALMENO UN DATO !", Toast.LENGTH_LONG).show();
@@ -112,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()){
             case R.id.btnSearchFilm_Main:
-                    ArrayList<Film> newArrayListFilm = gestoreArrayFilm.searchFilm(titolo, annoUscita, datiRegista);
+                    gestoreArrayFilm.searchFilm(titolo, annoUscita, datiRegista);
                         //Controlla che non sia vuoto
-                    if(newArrayListFilm != null){
+                    if(gestoreArrayFilm.getArrayListFilmRicerca() != null && gestoreArrayFilm.getArrayListFilmRicerca().size() > 0){
                         adapter = new PersonalizedArrayAdapter(getApplicationContext(), R.layout.film_layout
-                                , newArrayListFilm);
+                                , gestoreArrayFilm.getArrayListFilmRicerca());
                     }else{
                         Toast.makeText(getApplicationContext(), "NESSUNA CORRISPONDENZA TROVATA !", Toast.LENGTH_LONG).show();
                     }
@@ -130,10 +145,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "CORRISPONDENZA TROVATA\nED ELIMINATA !"
                             , Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "NESSUNA O PIU' DI UNA\nCORRISPONDENZA TROVATA !"
+                    Toast.makeText(getApplicationContext(), "NESSUNA o PIU' DI UNA\nCORRISPONDENZA TROVATA !"
                             , Toast.LENGTH_LONG).show();
                 }
-
                 break;
             default:
                 break;
@@ -146,17 +160,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    /**
+     * Metodo richiamato quando ha terminato la richiesta (la lettura) di tutti i film.
+     */
     public void richiestaJsonCompletata(){
-            /*Letto il file JSON e aggiunge i vari Film all'array, se qualcosa va storto, errore o file
-                json vuoto (quindi arraylist di Film con 0 elementi), all'adapter assegna null e nasconde tutto*/
+            /*Letto il file JSON controlla se qualcosa e' andato storto, errore o file
+                json vuoto (quindi arraylist di Film con 0 elementi), e in caso all'adapter assegna null
+                e nasconde tutto il contenuto dell'activity*/
         if(gestoreFile.getFlagErroreRichiesta()){
             Toast.makeText(getApplicationContext(),
-                    "Errore nel tentativo di lettura!\nControlla la tua connessione.", Toast.LENGTH_LONG).show();
+                    "Errore nel tentativo di lettura!\nCONTROLLA LA TUA CONNESSIONE.", Toast.LENGTH_LONG).show();
             adapter = null;
 
             bigLayout.setVisibility(View.INVISIBLE);
         }else if(gestoreFile.getFlagErroreJson()){
-            Toast.makeText(getApplicationContext(), "Errore durante la lettura!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Errore durante la lettura!\nRIAVVIA L'APP.", Toast.LENGTH_LONG).show();
             adapter = null;
 
             bigLayout.setVisibility(View.INVISIBLE);
@@ -175,21 +193,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             /*Assegna l'ascoltatore allo spinner con gli ordinamenti. Se la voce selezionata e' "ORDINAMENTO DI DEFAULT"
-                l'adapter dovra' caricare la lista di film di default, altrimenti fare il giusto ordinamento e caricare
+                l'adapter dovra' caricare la lista di film di default, altrimenti fara' l'ordinamento e carichera'
                 l'array ordinato nell'adapter*/
             spnOrdinamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    if(i != 0){
-                        gestoreArrayFilm.orderFilmBy(GestoreArrayFilm.ORDER_VALUES[i]);
+                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                    if(pos != 0){
+                        flagDefaultArrayFilm = false;
+                        gestoreArrayFilm.orderFilmBy(GestoreArrayFilm.ORDER_VALUES[pos]);
                         adapter = new PersonalizedArrayAdapter(getApplicationContext(), R.layout.film_layout
                                 , gestoreArrayFilm.getOrdinatedFilms());
                     }else{
+                        flagDefaultArrayFilm = true;
+
+                        gestoreArrayFilm.cancelOrdinatedFilms();
+
                         adapter = new PersonalizedArrayAdapter(getApplicationContext(), R.layout.film_layout
                                 , gestoreArrayFilm.getDefaultFilms());
                     }
                     listViewFilm.setAdapter(adapter);
-                    listViewFilm.setSelection(0);     //seleziona il primo elemeno, cosi' da vedere la lista dei film dall'inizio
+                    listViewFilm.setSelection(0);
                 }
 
                 @Override
@@ -197,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
 
 
-            /*Assegna l'ascoltatore al button per la ricerca del film*/
+            //Assegna l'ascoltatore al button per la ricerca del film
             btnSearchFilm.setOnClickListener(MainActivity.this);
             btnRemoveFilm.setOnClickListener(MainActivity.this);
         }

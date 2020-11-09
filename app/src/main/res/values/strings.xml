@@ -1,29 +1,29 @@
 <resources>
-    <string name="app_name">Catalogo Film</string>
-        <!--      MAIN-ACTIVITY LAYOUT           -->
+    <string name="app_name">Catalogo di Film</string>
+
+    <!--      MAIN-ACTIVITY LAYOUT           -->
     <string name="lblInfo">ORDINA FILM\nREGISTRATI PER</string>
     <string name="btnSearchFilm">CERCA FILM</string>
     <string name="btnRemoveFilm">ELIMINA FILM (TEMPORANEAMENTE)</string>
     <string name="hintTxtTitolo">TITOLO</string>
     <string name="hintTxtAnno">Anno di\nuscita</string>
     <string name="hintTxtRegista">Nome e/o cognome\ndel regista</string>
-        <!-- ################################### -->
+    <!-- ################################### -->
 
-        <!--      FILM LAYOUT           -->
+    <!--      FILM LAYOUT           -->
     <string name="lblTitolo">Titolo:</string>
     <string name="lblAnnoUscita">Anno di uscita:</string>
     <string name="lblDurata">Durata:</string>
     <string name="lblRegista">Regista:</string>
+    <string name="lblTrama">Trama:</string>
     <string name="lblGeneri">Generi:</string>
+    <string name="lblTag">Tag:</string>
     <string name="lblLingue">Lingue disponibili:</string>
     <string name="lblAttori">Attori:</string>
     <string name="lblCasaProduzione">Film prodotto da:</string>
     <string name="btnTrailer">Trailer</string>
     <string name="lblUsername">Username:</string>
     <string name="lblVoto">Voto:</string>
-
-    <string name="btnPrecedente">Precedente</string>
-    <string name="btnSuccessivo">Successivo</string>
-        <!-- ######################### -->
+    <!-- ######################### -->
 
 </resources>

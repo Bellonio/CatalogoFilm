@@ -36,8 +36,9 @@ public class GestoreFile {
     /**
      * Metodo che va a fare la richiesta per il JSON, e se tutto va a buon fine
      * richiama il metodo del MainActivity per settare gli ascoltatori. Quest'ultima parte
-     * non so quanto sia giusta da fare, ma se volevo fare una classe a parte per la lettura.
-     * Tutto questo perche', credo, il metodo termina prima che abbia eseguito l"onResponse",
+     * non so quanto sia giusta da fare, ma se volevo fare una classe a parte per la lettura
+     * era l'unico modo che mi e' venuto in mente.
+     * Tutto questo perche', CREDO, il metodo termina prima che abbia eseguito l"onResponse",
      * come se fosse un processo a parte, e quindi metodi come l'utilizzo di flag non e' utilizzabile.
      */
     public void readFilms(){
@@ -103,7 +104,8 @@ public class GestoreFile {
      * Nel metodo, prima di tutto rimuove le parentesi "[" "]" dalla stringa, dopodiche' splitta la stringa
      *  in un array di stringhe e le aggiunge ad un ArrayList, togliendo pero' il '"'. Ottenendo cosi', dalla stringa
      *  d'esempio, il seguente arraylist [" thriller "," fantastico "," drammatico "," orrore "]
-     * @param stringa   ad esempio: stringa == "["thriller","fantastico","drammatico","orrore"]"
+     *
+     *  @param stringa   ad esempio: stringa == "["thriller","fantastico","drammatico","orrore"]"
      * @return array di stringhe (nel caso di questo file JSON ritornera' l'array di generi, lingue o tag)
      */
     private ArrayList<String> convertStringToStringArray(String stringa){
@@ -119,7 +121,8 @@ public class GestoreFile {
 
     /**
      * Il metodo trasforma la stringa in un oggetto JSON, prende i vari valori e crea l'oggetto Regista
-     * @param stringa  ad esempio: stringa == "{"nome":"Rodrigo Cortés","cognome":"Giráldez","nazionalita":"spagnolo","anno_di_nascita":1973}"
+     * @param stringa  ad esempio: stringa ==
+     *                 "{"nome":"Rodrigo Cortés","cognome":"Giráldez","nazionalita":"spagnolo","anno_di_nascita":1973}"
      * @return l'oggetto Regista creato, o null in caso avvenga un errore
      */
     private Regista convertStringToRegista(String stringa){
@@ -136,5 +139,4 @@ public class GestoreFile {
             return (new Regista(nome, cognome, nazionalita, anno_di_nascita));
         } catch (JSONException e) { return null; }
     }
-
 }

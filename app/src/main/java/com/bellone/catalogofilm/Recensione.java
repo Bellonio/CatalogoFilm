@@ -2,9 +2,9 @@ package com.bellone.catalogofilm;
 
 public class Recensione {
 
-    private String username;
-    private String testo;
-    private int voto;
+    private final String username;
+    private final String testo;
+    private final int voto;
 
     public Recensione(String username, String testo, int voto) {
         this.username = username;

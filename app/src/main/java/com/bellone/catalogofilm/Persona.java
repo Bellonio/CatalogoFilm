@@ -1,11 +1,18 @@
 package com.bellone.catalogofilm;
 
-public class Persona {
+import java.io.Serializable;
 
-    private String nome;
-    private String cognome;
-    private String nazionalita;
-    private int anno_nascita;
+/*
+* La classe implementa l'interfaccia Serializable cosi' da rendere le classi figlie
+*  (Regista e Attore) anche serializzabili, questo per ora mi serve per poter inviare
+*  all'activity Dettagli anche l'oggetto Regista
+*/
+public class Persona implements Serializable {
+
+    private final String nome;
+    private final String cognome;
+    private final String nazionalita;
+    private final int anno_nascita;
 
     public Persona(String nome, String cognome, String nazionalita, int anno_nascita) {
         this.nome = nome;

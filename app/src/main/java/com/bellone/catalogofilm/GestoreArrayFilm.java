@@ -14,15 +14,14 @@ public class GestoreArrayFilm {
             "anno_di_uscitaASC",        //[1]
             "anno_di_uscitaDESC",       //[2]
             "durataASC",                //[3]
-            "durataDESC"                //[4]
+            "durataDESC",               //[4]
+            "alfabeticamente A-Z",      //[5]
+            "alfabeticamente Z-A"       //[6]
     };
 
-    private ArrayList<Film> default_films;
-
-        /*Questo sara' una copia dell'array dei film ma ordinato in un certo modo. Questo l'ho fatto per tenermi
-            sempre l'ordinamento originale (di lettura) dei film, pero' so che in caso ci fossero migliaia di Film
-            una copia significherebbe avere dati rindondanti...*/
+    private final ArrayList<Film> default_films;
     private ArrayList<Film> ordinated_films = null;
+    private ArrayList<Film> arrayListFilmRicerca;
 
     public GestoreArrayFilm() {
         default_films = new ArrayList<>();
@@ -30,7 +29,13 @@ public class GestoreArrayFilm {
 
     public ArrayList<Film> getDefaultFilms(){ return default_films; }
     public ArrayList<Film> getOrdinatedFilms(){ return ordinated_films; }
+    public ArrayList<Film> getArrayListFilmRicerca(){ return arrayListFilmRicerca; }
+
     public int getQtaFilms(){ return default_films.size(); }
+
+
+    public void cancelOrdinatedFilms(){ ordinated_films = null; }
+    public void cancelArrayListRicerca(){ arrayListFilmRicerca  = null; }
 
 
     public void addFilm(Film film){
@@ -42,16 +47,6 @@ public class GestoreArrayFilm {
     /**
      * Questo metodo va semplicemente a richiamare il metodo che aggiunge il film alla lista, creando sul momento
      *  l'oggetto Film con i parametri passati.
-     * @param imgUrl
-     * @param titolo
-     * @param durata
-     * @param anno_di_uscita
-     * @param generi
-     * @param lingue
-     * @param regista
-     * @param casa_di_produzione
-     * @param tag
-     * @param trama
      */
     public void addFilm(RequestQueue queue, String imgUrl, String titolo, int durata, int anno_di_uscita, ArrayList<String> generi, ArrayList<String> lingue,
                         Regista regista, String casa_di_produzione, ArrayList<String> tag, String trama){
@@ -64,6 +59,12 @@ public class GestoreArrayFilm {
         return removeFilm(film.getTitolo(), film.getAnno_di_uscita(),
                 (film.getRegista().getNome()+film.getRegista().getCognome()));
     }
+    /**
+     * Metodo utilizzando il metodo privato di questa classe "findFilmPosition" trova i film con i specifichi
+     * valori dati come parametri, e IN CASO NE TROVI SOLTANTO UNO, elimina dalla lista di default
+     * (principale) il film in questione
+     * @return          true se l'ha eliminato, false in caso contrario
+     */
     public boolean removeFilm(String titolo, int anno_di_uscita, String nomeCognome_regista){
         ArrayList<Integer> filmPositions = findFilmPosition(titolo, anno_di_uscita, nomeCognome_regista);
 
@@ -79,7 +80,7 @@ public class GestoreArrayFilm {
     /**
      * Con questo metodo vengono ritornati le posizioni di tutti i film con i campi dati.
      * I film possono essere cercati anche senza specificare ogni campo, trovando quindi film con la
-     * stessa specifica, per questo il metodo ritorna una lista di posizioni.
+     * stessa specifica, per questo il metodo ritorna una lista di posizioni e non una sola posizione.
      * @param titolo                se == "" il film non verra' cercato per il titolo
      * @param anno_di_uscita        se == 0    il film non verra' cercato per l'anno di uscita
      * @param nomeCognome_regista   se == "" il film non verra' cercato per i dati del registra
@@ -91,7 +92,8 @@ public class GestoreArrayFilm {
         Controlla se e' stato dato un solo campo, in caso contrario per aggiungere la posizione del film
          dovrebbe controllare che i campi del film in posizione "i" corrispondano ai campi dati.
         Inoltre, dato che e' difficile che l'utente sappia ESATTAMENTE il titolo o i dati del regista,
-         controllera' che il dato scritto sia contenuto nel campo corrispondente del film.
+         controllera' che il dato scritto sia CONTENUTO nel campo corrispondente del film (non fara'
+          .equals() ma .contains()).
 
           AD ESEMPIO: se i campi dati in input sono: titolo= "transformers", anno_di_uscita = 0, nomeCognome_regista = ""
             il metodo trovera' i film: "Transformers 1", "Transformer - La vendetta del caduto", "Transformer 3"
@@ -100,7 +102,7 @@ public class GestoreArrayFilm {
           Oppure nel secondo caso:
 
           AD ESEMPIO: se i campi dati in input sono: titolo= "transformers", anno_di_uscita = 2011, nomeCognome_regista = ""
-            il metodo trovera' soltanto film: "Transformer 3"
+            il metodo trovera' soltanto film: "Transformer 3" (del 2011)
         */
 
         ArrayList<Integer> film_indexs = new ArrayList<>();
@@ -147,44 +149,22 @@ public class GestoreArrayFilm {
 
     /**
      * Metodo che utilizza il metodo privato di questa classe per avere le posizioni dei Film con i
-     * campi dati e ritorna una lista.
-     * @param titolo
-     * @param anno_di_uscita
-     * @param nomeCognome_regista
-     * @return array di Film, in caso trovi almeno un Film, altrimenti null
+     * campi dati e modifica la lista dei film ricercati.
      */
-    public ArrayList<Film> searchFilm(String titolo, int anno_di_uscita, String nomeCognome_regista){
+    public void searchFilm(String titolo, int anno_di_uscita, String nomeCognome_regista){
         ArrayList<Integer> filmPositions = findFilmPosition(titolo, anno_di_uscita, nomeCognome_regista);
 
         if(filmPositions.size() == 0){
-            return null;
+            arrayListFilmRicerca =  null;
         }else{
-            ArrayList<Film> film_trovati = new ArrayList<>();
+            if(arrayListFilmRicerca == null || arrayListFilmRicerca.size() > 0){ arrayListFilmRicerca = new ArrayList<>(); }
             for(int pos: filmPositions){
-                film_trovati.add(default_films.get(pos));
+                arrayListFilmRicerca.add(default_films.get(pos));
             }
-            return film_trovati;
         }
-
     }
 
-    /**
-     * Metodo che utilizza il metodo privato di questa classe per avere le posizioni dei Film con i
-     * campi dati e ritorna una lista.
-     * @param titolo
-     * @param anno_di_uscita
-     * @param nomeCognome_regista
-     * @param parametroInutile          parametro che mi permette di utilizzare il polimorfismo dei metodi
-     *                                      differenziando questo metodo dal precedente
-     * @return array di posizioni, percio' ritorna semplicemente il valore di ritorno del metodo che richiama
-     */
-    public ArrayList<Integer> searchFilm(String titolo, int anno_di_uscita, String nomeCognome_regista, int parametroInutile){
-        return findFilmPosition(titolo, anno_di_uscita, nomeCognome_regista);
-    }
-
-
-    public void modifyFilm(/*bho magari la posizione del film modificato e l'oggetto Film con i valori modificati*/){
-        /*
+    /*public void modifyFilm(bho magari la posizione del film modificato e l'oggetto Film con i valori modificati){
         ANCORA DA FARE, MA POTREI CAMBIARE TUTTE LE TEXT VIEW DEL LAYOUT FILM IN EDIT TEXT,
          MA DISABILITANDOLE (SARANNO VISTE E UTILIZZABILI COME SEMPLICI TEXT VIEW) con .setEnable(false).
          POI INSERIREI UN ASCOLTATORE DELL'ON CLICK (oppure long click) SU OGNUNA DI ESSE CHE VADI A FARE
@@ -192,13 +172,22 @@ public class GestoreArrayFilm {
            MODIFICATO E LO ASSEGNEREI ALL'ATTRIBUTO CORRETTO DELL'OGGETTO FILM IN QUESTIONE.
 
         NON SO ANCORA COME POTREI SALVARE LA MODIFICA ANCHE SUL FILE...
-        */
-    }
+    }*/
 
 
+    /**
+     * Metodo che copia la lista defaultFilm in ordinated_films e ordina quest'ultima secondo
+     * cio' che ha scelto l'utente
+     */
     public void orderFilmBy(final String orderBy){
         ordinated_films = new ArrayList<>();
-        for(Film film: default_films){ ordinated_films.add(film); }
+
+        if(arrayListFilmRicerca == null){
+            ordinated_films.addAll(default_films);
+        }else{
+            ordinated_films.addAll(arrayListFilmRicerca);
+        }
+
 
         Collections.sort(ordinated_films, new Comparator<Film>() {
             @Override
@@ -233,20 +222,39 @@ public class GestoreArrayFilm {
                         return -1;
                     }else{ flagDatiUguali = true; }
 
+                }else if(orderBy.equals(ORDER_VALUES[5])){      //alfabeticamente A-Z
+                    return ordineAlfabetico(f1, f2, true);
+                }else if(orderBy.equals(ORDER_VALUES[6])){      //alfabeticamente Z-A
+                    return ordineAlfabetico(f1, f2, false);
                 }
 
+                //In caso di dati uguali ordina per ordine alfabetico per il titolo
                 if(flagDatiUguali){
-                    if(f1.getTitolo().compareTo(f2.getTitolo()) > 0){
-                        return 1;
-                    }else if(f1.getTitolo().compareTo(f2.getTitolo()) < 0){
-                        return -1;
-                    }else{
-                        return 0;
-                    }
+                    return ordineAlfabetico(f1, f2, true);
                 }else{ //QUI CI ENTRA SOLO SE NON E' ENTRATO IN UNO DEGLI IF PRECEDENTI
                     return 0;
                 }
             }
         });
+    }
+
+    /**
+     * Metodo per il confronto di due titoli di film. E' utilizzato nel metodo onCompare di sopra
+     * quindi deve ritornare -1 per posizionare il primo film sopra il secondo, 1 per il contrario
+     * o 0 per lasciarli nella stessa posizione.
+     * Il metodo e' utilizzato per ordinare tra loro due titoli in ordine alfabetico, ma puo' essere
+     * ordinamento dalla A alla Z o al contrario, percio' nel secondo caso vado semplicemente ad
+     * invertire il ritorno, cosi' da invertire l'ordinamento.
+     */
+    private int ordineAlfabetico(Film f1, Film f2, boolean A_Z){
+        int ritornoPositivo = A_Z ? 1 : -1;
+
+        if(f1.getTitolo().compareTo(f2.getTitolo()) > 0){
+            return ritornoPositivo;
+        }else if(f1.getTitolo().compareTo(f2.getTitolo()) < 0){
+            return -ritornoPositivo;
+        }else{
+            return 0;
+        }
     }
 }
