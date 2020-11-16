@@ -2,6 +2,7 @@ package com.bellone.catalogofilm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,38 +74,46 @@ public class PersonalizedArrayAdapter extends ArrayAdapter {
         if(resource == R.layout.film_layout) {
 
             Film film = (Film) getItem(position);
-            String contenutoArrayList_string;
+
+            if(film != null){
+                String contenutoArrayList_string;
 
 
-            if(film.getLocandina() != null){
                 ImageView imgLocandina = convertView.findViewById(R.id.imgCopertina_Film);
-                imgLocandina.setImageBitmap(film.getLocandina());
-            }
+                Picasso.with(context).load(film.getUrl_locandina()).into(imgLocandina);
 
 
-            textView = convertView.findViewById(R.id.lblTitolo_Film);
-            str_da_assegnare = context.getString(R.string.lblTitolo) + " " + film.getTitolo();
-            textView.setText(str_da_assegnare);
+                textView = convertView.findViewById(R.id.lblTitolo_Film);
+                str_da_assegnare = context.getString(R.string.lblTitolo) + " " + film.getTitolo();
+                textView.setText(str_da_assegnare);
 
 
-            textView = convertView.findViewById(R.id.lblAnnoUscita_Film);
-            str_da_assegnare = context.getString(R.string.lblAnnoUscita) + " "
-                    + film.getAnno_di_uscita();
-            textView.setText(str_da_assegnare);
+                textView = convertView.findViewById(R.id.lblAnnoUscita_Film);
+                str_da_assegnare = context.getString(R.string.lblAnnoUscita) + " "
+                        + film.getAnno_di_uscita();
+                textView.setText(str_da_assegnare);
 
 
-            contenutoArrayList_string = context.getString(R.string.lblGeneri) + " " + trasformaArray_inStringa(film.getGeneri());
-            textView = convertView.findViewById(R.id.lblGeneri_Film);
-            textView.setText(contenutoArrayList_string);
+                contenutoArrayList_string = context.getString(R.string.lblGeneri) + " " + trasformaArray_inStringa(film.getGeneri());
+                textView = convertView.findViewById(R.id.lblGeneri_Film);
+                textView.setText(contenutoArrayList_string);
 
 
-            textView = convertView.findViewById(R.id.lblDurata_Film);
-            int durata_int = film.getDurata();
+                textView = convertView.findViewById(R.id.lblDurata_Film);
+                int durata_int = film.getDurata();
                 //Trasformo la durata in minuti in una durata piu' leggibbile per un umano (ore : minuti)
-            String durata_str = durata_int/60 +"h : "
-                    +durata_int%60+"min";
-            str_da_assegnare = context.getString(R.string.lblDurata) + "\n" + durata_str;
-            textView.setText(str_da_assegnare);
+                String durata_str = durata_int/60 +"h : "
+                        +durata_int%60+"min";
+                str_da_assegnare = context.getString(R.string.lblDurata) + "\n" + durata_str;
+                textView.setText(str_da_assegnare);
+
+                /*convertView.findViewById(R.id.layoutDatiFilm_Film).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("mieilog", "onClick: "+film.getTitolo());
+                    }
+                });*/
+            }
 
         }else if(resource == R.layout.recensione_layout){
             Recensione recensione = (Recensione) getItem(position);

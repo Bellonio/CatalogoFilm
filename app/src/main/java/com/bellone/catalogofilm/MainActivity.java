@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Film film = flagDefaultArrayFilm ? gestoreArrayFilm.getDefaultFilms().get(pos)
                         : gestoreArrayFilm.getOrdinatedFilms().get(pos);
                 Intent intent = new Intent(getApplicationContext(), DettagliActivity.class);
-                intent.putExtra("film_parcelable", film);
+                intent.putExtra("film_serializable", film);
                 startActivity(intent);
             }
         });

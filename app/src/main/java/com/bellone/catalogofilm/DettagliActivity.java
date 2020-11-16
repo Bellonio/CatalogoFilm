@@ -48,7 +48,7 @@ public class DettagliActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
 
             //recupera il film passato tramite l'Intent
-        film = getIntent().getParcelableExtra("film_parcelable");
+        film = (Film) getIntent().getSerializableExtra("film_serializable");
 
         valorizzaTextView();
 
